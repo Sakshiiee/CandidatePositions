@@ -58,7 +58,14 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateDto patch(Long id, CandidateDto dto) {
-        return null;
+        Candidate candidate = candidateRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Candidate not found with id: " + id));
+
+        age(dto.getDob());
+        mapper.map(dto, candidate);
+        candidate.setPositions(getPositionEntities(dto.getPositionIds()));
+        Candidate updated = candidateRepo.save(candidate);
+        return mapper.map(updated, CandidateDto.class);
     }
 
     @Override
