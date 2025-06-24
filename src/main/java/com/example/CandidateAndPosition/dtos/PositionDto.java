@@ -30,4 +30,12 @@ public class PositionDto {
     public void setPositionName(String positionName) {
         this.positionName = positionName;
     }
+
+//    public PositionDto() {
+//    }
+//
+//    public PositionDto(String positionName, Long id) {
+//        this.positionName = positionName;
+//        this.id = id;
+//    }
 }

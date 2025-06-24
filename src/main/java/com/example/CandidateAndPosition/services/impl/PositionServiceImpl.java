@@ -10,6 +10,7 @@ import com.example.CandidateAndPosition.repositories.PositionRepo;
 import com.example.CandidateAndPosition.services.PositionService;
 import lombok.AllArgsConstructor;
 //import org.modelmapper.ModelMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,14 +21,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class PositionServiceImpl implements PositionService {
 
-    @Autowired
-    private PositionRepo positionRepo;
+
+    private final PositionRepo positionRepo;
 
 //    @Autowired
 //    private ModelMapper mapper;
 
-    @Autowired
-    private PositionMapper mapper;
+
+    private final PositionMapper mapper;
+
+    public PositionServiceImpl(PositionMapper positionMapper, PositionRepo positionRepo) {
+        this.positionRepo = positionRepo;
+        this.mapper = positionMapper;
+    }
 
 
     @Override
@@ -49,12 +55,12 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public PositionDto patch(Long id, PositionDto dto) {
-            Position position = positionRepo.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Position not found with id: " + id));
-            if (dto.getPositionName() != null) {
-                position.setPositionName(dto.getPositionName());
-            }
-            return mapper.toDto(positionRepo.save(position));
+        Position position = positionRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Position not found with id: " + id));
+        if (dto.getPositionName() != null) {
+            position.setPositionName(dto.getPositionName());
+        }
+        return mapper.toDto(positionRepo.save(position));
     }
 
     @Override
@@ -66,7 +72,7 @@ public class PositionServiceImpl implements PositionService {
         return Helper.getPageableResponse(page, mapper::toDto);
     }
 
-        @Override
+    @Override
     public PositionDto getById(Long id) {
         Position position = positionRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Position not found with id: " + id));

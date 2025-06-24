@@ -74,4 +74,16 @@ public class CandidateDto {
     public void setPositions(List<PositionDto> positions) {
         this.positions = positions;
     }
+
+//    public CandidateDto() {
+//    }
+//
+//    public CandidateDto(Long id, List<PositionDto> positions, List<Long> positionIds, String email, LocalDate dob, String name) {
+//        this.id = id;
+//        this.positions = positions;
+//        this.positionIds = positionIds;
+//        this.email = email;
+//        this.dob = dob;
+//        this.name = name;
+//    }
 }

@@ -4,6 +4,7 @@ import com.example.CandidateAndPosition.dtos.CandidateDto;
 import com.example.CandidateAndPosition.dtos.PageableResponse;
 import com.example.CandidateAndPosition.services.CandidateService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("api/candidates")
 public class CandidateController {
-     @Autowired
-    private CandidateService candidateService;
+
+    private final CandidateService candidateService;
+
+    public CandidateController(CandidateService candidateService) {
+        this.candidateService = candidateService;
+    }
 
     // Create
     @PostMapping
@@ -32,13 +37,13 @@ public class CandidateController {
         return new ResponseEntity<>(updated, HttpStatus.CREATED);
     }
 
-    // Patch
-    @PatchMapping("/{candidateId}")
-    public ResponseEntity<CandidateDto> patchCandidate(@RequestBody CandidateDto candidateDto,
-                                                       @PathVariable Long candidateId) {
-        CandidateDto patched = candidateService.patch(candidateId, candidateDto);
-        return new ResponseEntity<>(patched, HttpStatus.OK);
-    }
+//    // Patch
+//    @PatchMapping("/{candidateId}")
+//    public ResponseEntity<CandidateDto> patchCandidate(@RequestBody CandidateDto candidateDto,
+//                                                       @PathVariable Long candidateId) {
+//        CandidateDto patched = candidateService.patch(candidateId, candidateDto);
+//        return new ResponseEntity<>(patched, HttpStatus.OK);
+//    }
 
     // Delete
     @DeleteMapping("/{candidateId}")

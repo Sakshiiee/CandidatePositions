@@ -4,6 +4,7 @@ import com.example.CandidateAndPosition.dtos.PageableResponse;
 import com.example.CandidateAndPosition.dtos.PositionDto;
 import com.example.CandidateAndPosition.services.PositionService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/positions")
 public class PositionController {
 
-    @Autowired
-    private PositionService positionService;
+
+    private final PositionService positionService;
+
+    public PositionController(PositionService positionService) {
+        this.positionService = positionService;
+    }
 
     //create position
     @PostMapping
@@ -31,13 +36,13 @@ public class PositionController {
         return new ResponseEntity<>(updated, HttpStatus.CREATED);
     }
 
-    // Patch for partial updation
-    @PatchMapping("/{positionId}")
-    public ResponseEntity<PositionDto> patchPosition(@RequestBody PositionDto positionDto,
-                                                     @PathVariable Long positionId) {
-        PositionDto patched = positionService.patch(positionId, positionDto);
-        return new ResponseEntity<>(patched, HttpStatus.CREATED);
-    }
+//    // Patch for partial updation
+//    @PatchMapping("/{positionId}")
+//    public ResponseEntity<PositionDto> patchPosition(@RequestBody PositionDto positionDto,
+//                                                     @PathVariable Long positionId) {
+//        PositionDto patched = positionService.patch(positionId, positionDto);
+//        return new ResponseEntity<>(patched, HttpStatus.CREATED);
+//    }
 
     // Delete
     @DeleteMapping("/{positionId}")

@@ -47,4 +47,13 @@ public class Position {
     public void setCandidates(List<Candidate> candidates) {
         this.candidates = candidates;
     }
+
+//    public Position() {
+//    }
+//
+//    public Position(Long id, List<Candidate> candidates, String positionName) {
+//        this.id = id;
+//        this.candidates = candidates;
+//        this.positionName = positionName;
+//    }
 }

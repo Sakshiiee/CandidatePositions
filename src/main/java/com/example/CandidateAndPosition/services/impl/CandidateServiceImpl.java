@@ -11,6 +11,7 @@ import com.example.CandidateAndPosition.repositories.CandidateRepo;
 import com.example.CandidateAndPosition.repositories.PositionRepo;
 import com.example.CandidateAndPosition.services.CandidateService;
 //import org.modelmapper.ModelMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,11 +28,14 @@ import java.util.stream.Collectors;
 @Service
 public class CandidateServiceImpl implements CandidateService {
 
-    @Autowired
-    private CandidateRepo candidateRepo;
+    private final CandidateRepo candidateRepo;
 
-    @Autowired
-    private PositionRepo positionRepo;
+    private final PositionRepo positionRepo;
+
+    public CandidateServiceImpl(CandidateRepo candidateRepo, PositionRepo positionRepo) {
+        this.candidateRepo = candidateRepo;
+        this.positionRepo = positionRepo;
+    }
 
 //    @Autowired
 //    private ModelMapper mapper;
